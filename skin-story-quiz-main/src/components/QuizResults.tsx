@@ -5,10 +5,14 @@ import { Sparkles, Target, Clock, Shield } from "lucide-react";
 
 interface QuizResultsProps {
   answers: Record<string, string[]>;
+  photos: { front: string; side: string } | null;
   onRestart: () => void;
 }
 
-const QuizResults = ({ answers, onRestart }: QuizResultsProps) => {
+const QuizResults = ({ answers, photos, onRestart }: QuizResultsProps) => {
+  
+  console.log("QuizResults - photos:", photos);
+  
   // Generate personalized recommendations based on answers
   const generateRecommendations = () => {
     const skinType = answers['skin-type']?.[0] || 'normal';
@@ -58,11 +62,11 @@ const QuizResults = ({ answers, onRestart }: QuizResultsProps) => {
         {/* Header */}
         <Card className="p-8 text-center">
           <div className="space-y-4">
-            <div className="w-16 h-16 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
+            {/* <div className="w-16 h-16 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
               <Sparkles className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-3xl font-bold">Your Personalized Beauty Plan</h1>
-            <p className="text-muted-foreground text-lg">
+            </div> */}
+            <h1 className="text-3xl font-bold">Your Personalized Self-Care Plan</h1>
+            <p className="text-foreground text-lg">
               Based on your responses, we've created a customized skincare routine just for you.
             </p>
             
@@ -82,6 +86,60 @@ const QuizResults = ({ answers, onRestart }: QuizResultsProps) => {
             </div>
           </div>
         </Card>
+
+        {/* Photos Section */}
+        {photos && photos.front && photos.side ? (
+          <Card className="p-6">
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-center border-b border-gray-300 pb-2 ">Your Photos</h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <h4 className="font-medium text-center">Front View</h4>
+                  <div className="relative bg-slate-800 rounded-lg overflow-hidden aspect-video">
+                    <img
+                      src={photos.front}
+                      alt="Front view"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.error("Error loading front photo:", e);
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="font-medium text-center">Side View</h4>
+                  <div className="relative bg-slate-800 rounded-lg overflow-hidden aspect-video">
+                    <img
+                      src={photos.side}
+                      alt="Side view"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        console.error("Error loading side photo:", e);
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground text-center">
+                These photos help us provide more personalized recommendations based on your skin analysis.
+              </p>
+            </div>
+          </Card>
+        ) : (
+          <Card className="p-6">
+            <div className="text-center space-y-4">
+              <h3 className="text-xl font-semibold">Photos Not Available</h3>
+              <p className="text-muted-foreground">
+                Photos were not captured or are not available for display.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Debug info: photos = {JSON.stringify(photos)}
+              </p>
+            </div>
+          </Card>
+        )}
 
         {/* Recommendations */}
         <div className="grid gap-6 md:grid-cols-2">

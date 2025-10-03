@@ -1,22 +1,25 @@
 import { useState } from "react";
 import QuizLanding from "@/components/QuizLanding";
 import QuizQuestion from "@/components/QuizQuestion";
+import CameraCapture from "@/components/CameraCapture";
 import QuizResults from "@/components/QuizResults";
 import { questions } from "@/data/questions";
 import { useToast } from "@/hooks/use-toast";
 
-type QuizStep = "landing" | "quiz" | "results";
+type QuizStep = "landing" | "quiz" | "camera" | "results";
 
 const Index = () => {
   const [step, setStep] = useState<QuizStep>("landing");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
+  const [photos, setPhotos] = useState<{ front: string; side: string } | null>(null);
   const { toast } = useToast();
 
   const handleStart = () => {
     setStep("quiz");
     setCurrentQuestionIndex(0);
     setAnswers({});
+    setPhotos(null);
   };
 
   const handleAnswerChange = (questionId: string, selectedAnswers: string[]) => {
@@ -42,7 +45,7 @@ const Index = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     } else {
-      setStep("results");
+      setStep("camera");
     }
   };
 
@@ -56,6 +59,18 @@ const Index = () => {
     setStep("landing");
     setCurrentQuestionIndex(0);
     setAnswers({});
+    setPhotos(null);
+  };
+
+  const handleCameraComplete = (capturedPhotos: { front: string; side: string }) => {
+    console.log("Index - received photos:", capturedPhotos);
+    setPhotos(capturedPhotos);
+    setStep("results");
+  };
+
+  const handleCameraBack = () => {
+    setStep("quiz");
+    setCurrentQuestionIndex(questions.length - 1);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -81,7 +96,16 @@ const Index = () => {
     );
   }
 
-  return <QuizResults answers={answers} onRestart={handleRestart} />;
+  if (step === "camera") {
+    return (
+      <CameraCapture
+        onComplete={handleCameraComplete}
+        onBack={handleCameraBack}
+      />
+    );
+  }
+
+  return <QuizResults answers={answers} photos={photos} onRestart={handleRestart} />;
 };
 
 export default Index;
