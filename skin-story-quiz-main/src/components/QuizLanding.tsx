@@ -16,10 +16,10 @@ const QuizLanding = ({ onStart }: QuizLandingProps) => {
   };
 
   return (
-    <div className="max-w-7xl  mx-auto w-full flex items-center justify-center px-4 py-6 sm:px-6 sm:py-12 min-h-[100dvh] max-h-[100dvh] overflow-y-auto sm:min-h-0 sm:max-h-none">
+    <div className="max-w-7xl  mx-auto w-full flex items-center justify-center px-4 py-6 sm:px-6 sm:py-12 h-[100svh] overflow-hidden sm:h-auto sm:overflow-visible">
       <Card className="w-full max-w-sm sm:max-w-md md:max-w-lg p-6 sm:p-8 md:p-10 text-center space-y-6 sm:space-y-8 md:space-y-10 animate-slide-in">
         {/* Hero Portrait */}
-        <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48">
+        <div className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 aspect-square">
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-primary-glow/20 animate-pulse-slow"></div>
           <img
             src={heroPortrait}
