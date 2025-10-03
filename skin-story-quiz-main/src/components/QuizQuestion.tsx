@@ -53,8 +53,8 @@ const QuizQuestion = ({
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12">
-      <Card className="max-w-2xl w-full p-8 space-y-8 animate-slide-in bg-slate-900 text-white border-slate-700">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 sm:py-12">
+      <Card className="max-w-2xl w-full p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 animate-slide-in bg-slate-900 text-white border-slate-700">
         {/* Progress */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm text-muted-foreground">
@@ -65,19 +65,19 @@ const QuizQuestion = ({
         </div>
 
         {/* Question */}
-        <div className="space-y-4 text-center">
-          <h2 className="text-2xl font-bold text-white">
+        <div className="space-y-3 sm:space-y-4 text-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
             {question.title}
           </h2>
           {question.subtitle && (
-            <p className="text-muted-primary text-lg">
+            <p className="text-muted-primary text-base sm:text-lg">
               {question.subtitle}
             </p>
           )}
         </div>
 
         {/* Options */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {question.type === 'single' ? (
             <RadioGroup
               value={selectedAnswers[0] || ""}
@@ -85,12 +85,12 @@ const QuizQuestion = ({
               className="space-y-3"
             >
               {question.options.map((option) => (
-                <div key={option.id} className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary/50 transition-colors">
-                  <RadioGroupItem value={option.id} id={option.id} />
+                <div key={option.id} className="flex items-start gap-3 p-3 sm:p-4 rounded-lg border border-border hover:border-primary/50 transition-colors">
+                  <RadioGroupItem value={option.id} id={option.id} className="shrink-0" />
                   <Label htmlFor={option.id} className="flex-1 cursor-pointer">
-                    <div className="font-medium">{option.label}</div>
+                    <div className="font-medium text-sm sm:text-base">{option.label}</div>
                     {option.description && (
-                      <div className="text-sm text-muted-foreground mt-1">
+                      <div className="text-xs sm:text-sm text-muted-foreground mt-1">
                         {option.description}
                       </div>
                     )}
@@ -99,18 +99,18 @@ const QuizQuestion = ({
               ))}
             </RadioGroup>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {question.options.map((option) => (
-                <div key={option.id} className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary/50 transition-colors">
+                <div key={option.id} className="flex items-start gap-3 p-3 sm:p-4 rounded-lg border border-border hover:border-primary/50 transition-colors">
                   <Checkbox
                     id={option.id}
                     checked={selectedAnswers.includes(option.id)}
                     onCheckedChange={(checked) => handleMultipleSelect(option.id, checked as boolean)}
                   />
                   <Label htmlFor={option.id} className="flex-1 cursor-pointer">
-                    <div className="font-medium">{option.label}</div>
+                    <div className="font-medium text-sm sm:text-base">{option.label}</div>
                     {option.description && (
-                      <div className="text-sm text-muted-foreground mt-1">
+                      <div className="text-xs sm:text-sm text-muted-foreground mt-1">
                         {option.description}
                       </div>
                     )}
@@ -122,10 +122,10 @@ const QuizQuestion = ({
         </div>
 
         {/* Navigation */}
-        <div className="flex justify-between pt-6">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between pt-4 sm:pt-6">
           <Button
             variant="outline"
-            className="bg-slate-700 text-white hover:bg-slate-600 border-slate-700"
+            className="w-full sm:w-auto bg-slate-700 text-white hover:bg-slate-600 border-slate-700"
             onClick={onPrevious}
             disabled={currentQuestion === 0}
           >
@@ -135,7 +135,7 @@ const QuizQuestion = ({
           <Button
             onClick={onNext}
             disabled={!canGoNext}
-            className="bg-primary hover:bg-primary-glow"
+            className="w-full sm:w-auto bg-primary hover:bg-primary-glow"
           >
             {currentQuestion === totalQuestions - 1 ? "Get Results" : "Next"}
           </Button>

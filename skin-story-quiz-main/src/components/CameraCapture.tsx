@@ -19,9 +19,22 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [viewportHeight, setViewportHeight] = useState<number>(window.innerHeight);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Handle viewport resize for responsive design
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportHeight(window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Start camera when needed
   useEffect(() => {
@@ -319,14 +332,14 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
   }, [step, stream, frontPhoto, sidePhoto, isLoading, isVideoReady, errorMessage]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-gradient-to-br from-purple-50 to-pink-50">
-      <Card className="max-w-2xl w-full p-8 space-y-8 bg-white shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center px-2 py-4 sm:px-6 sm:py-12 bg-gradient-to-br from-purple-50 to-pink-50">
+      <Card className="max-w-2xl w-full p-3 sm:p-6 md:p-8 space-y-4 sm:space-y-8 bg-white shadow-2xl">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <h2 className="text-3xl font-bold text-gray-900">
+        <div className="text-center space-y-1 sm:space-y-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
             Take Your {photoLabel} Photo
           </h2>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             {step === "front" 
               ? "Position your face in the frame and capture a clear front photo" 
               : "Now turn slightly to the side and capture your side profile"}
@@ -335,7 +348,7 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
 
         {/* Progress */}
         <div className="space-y-2">
-          <div className="flex justify-between text-sm text-gray-600">
+          <div className="flex justify-between text-xs sm:text-sm text-gray-600">
             <span>Photo {step === "front" ? "1" : "2"} of 2</span>
             <span>{progress}% complete</span>
           </div>
@@ -344,17 +357,17 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
 
         {/* Camera/Photo Display */}
         {!currentPhoto ? (
-          <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video border-4 border-gray-200 shadow-xl">
+            <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-[4/5] sm:aspect-video border-2 sm:border-4 border-gray-200 shadow-xl">
             {/* Error State */}
             {errorMessage && (
-              <div className="absolute inset-0 flex items-center justify-center flex-col p-6 bg-gray-900 bg-opacity-95 z-10">
-                <div className="bg-red-100 border-2 border-red-500 rounded-lg p-6 max-w-md">
-                  <p className="text-red-700 text-center mb-4 font-medium">{errorMessage}</p>
+              <div className="absolute inset-0 flex items-center justify-center flex-col p-3 sm:p-6 bg-gray-900 bg-opacity-95 z-10">
+                <div className="bg-red-100 border-2 border-red-500 rounded-lg p-3 sm:p-6 max-w-md">
+                  <p className="text-red-700 text-center mb-3 sm:mb-4 text-sm sm:text-base font-medium">{errorMessage}</p>
                   <Button 
                     onClick={startCamera} 
                     className="w-full bg-red-600 hover:bg-red-700 text-white"
                   >
-                    <Camera className="w-5 h-5 mr-2" /> Try Again
+                    <Camera className="w-4 h-4 sm:w-5 sm:h-5 mr-2" /> Try Again
                   </Button>
                 </div>
               </div>
@@ -365,10 +378,10 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
               <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
                 <Button 
                   onClick={startCamera} 
-                  size="lg"
-                  className="bg-purple-600 hover:bg-purple-700 text-white text-lg px-12 py-6"
+                  size="default"
+                  className="bg-purple-600 hover:bg-purple-700 text-white text-sm sm:text-lg px-6 sm:px-12 py-3 sm:py-6"
                 >
-                  <Camera className="w-6 h-6 mr-3" /> Start Camera
+                  <Camera className="w-4 h-4 sm:w-6 sm:h-6 mr-2 sm:mr-3" /> Start Camera
                 </Button>
               </div>
             )}
@@ -377,8 +390,8 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
             {isLoading && (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-800">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-white mx-auto mb-4"></div>
-                  <p className="text-white text-lg">Starting camera...</p>
+                  <div className="animate-spin rounded-full h-10 w-10 sm:h-16 sm:w-16 border-b-4 border-white mx-auto mb-3 sm:mb-4"></div>
+                  <p className="text-white text-sm sm:text-lg">Starting camera...</p>
                 </div>
               </div>
             )}
@@ -395,22 +408,22 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
                   style={{ transform: 'scaleX(-1)' }} // Mirror effect
                 />
                 
-                {/* Face Guide Overlay */}
+                {/* Face Guide Overlay - Smaller on mobile */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="border-4 border-dashed border-white opacity-50 rounded-full w-64 h-80"></div>
+                  <div className="border-2 sm:border-4 border-dashed border-white opacity-50 rounded-full w-48 h-56 sm:w-64 sm:h-80"></div>
                 </div>
                 
-                {/* Capture Button */}
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+                {/* Capture Button - Smaller on mobile */}
+                <div className="absolute bottom-2 sm:bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 px-2 sm:px-4">
                   <Button
                     onClick={capturePhoto}
-                    size="lg"
+                    size="default"
                     disabled={!isVideoReady}
-                    className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-6 text-lg font-bold shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-white text-purple-600 hover:bg-gray-100 px-4 sm:px-6 md:px-8 py-2 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-bold shadow-xl sm:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isVideoReady ? (
                       <>
-                        <Camera className="w-6 h-6 mr-2" /> Capture Photo
+                        <Camera className="w-4 h-4 sm:w-6 sm:h-6 mr-1 sm:mr-2" /> Capture Photo
                       </>
                     ) : (
                       <>Loading camera...</>
@@ -422,7 +435,7 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
           </div>
         ) : (
           // Photo Preview
-          <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-video border-4 border-green-500 shadow-xl">
+          <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-[4/5] sm:aspect-video border-2 sm:border-4 border-green-500 shadow-xl">
             <img 
               src={currentPhoto} 
               alt={`${photoLabel} photo`} 
@@ -434,28 +447,28 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
               }}
             />
             
-            {/* Success Badge */}
-            <div className="absolute top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg">
-              <Check className="w-5 h-5" /> Photo Captured!
+            {/* Success Badge - Smaller on mobile */}
+            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-green-500 text-white px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-1 sm:gap-2 shadow-lg">
+              <Check className="w-3 h-3 sm:w-5 sm:h-5" /> Photo Captured!
             </div>
             
-            {/* Retake Button */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            {/* Retake Button - Smaller on mobile */}
+            <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 px-2 sm:px-4">
               <Button 
                 onClick={retakePhoto} 
                 variant="outline" 
-                className="bg-white hover:bg-gray-100 border-2 border-gray-300 px-6 py-3 shadow-lg"
+                className="bg-white hover:bg-gray-100 border-2 border-gray-300 px-3 sm:px-5 md:px-6 py-2 sm:py-3 text-xs sm:text-sm shadow-lg"
               >
-                <RotateCcw className="w-5 h-5 mr-2" /> Retake Photo
+                <RotateCcw className="w-3 h-3 sm:w-5 sm:h-5 mr-1 sm:mr-2" /> Retake Photo
               </Button>
             </div>
           </div>
         )}
 
         {/* Instructions */}
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-          <h4 className="font-semibold text-blue-900 mb-2">📸 Photo Tips:</h4>
-          <ul className="text-sm text-blue-800 space-y-1">
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-3 sm:p-4 rounded text-xs sm:text-sm">
+          <h4 className="font-semibold text-blue-900 mb-1 sm:mb-2">📸 Photo Tips:</h4>
+          <ul className="text-blue-800 space-y-0.5 sm:space-y-1">
             <li>• Make sure you're in a well-lit area</li>
             <li>• Position your face clearly within the guide</li>
             <li>• Remove glasses or accessories if possible</li>
@@ -464,30 +477,30 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between gap-4 pt-4">
+        <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 pt-2 sm:pt-4">
           <Button 
             onClick={handleBack} 
             variant="outline" 
-            size="lg"
-            className="px-6 py-3 border-2"
+            size="default"
+            className="w-full sm:w-auto px-3 sm:px-6 py-2 sm:py-3 border-2 text-sm sm:text-base"
           >
-            <ArrowLeft className="w-5 h-5 mr-2" />
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
             {step === "front" ? "Back to Questions" : "Previous Photo"}
           </Button>
 
           <Button
             onClick={handleNext}
             disabled={!currentPhoto}
-            size="lg"
-            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            size="default"
+            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-8 py-2 sm:py-3 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {step === "front" ? (
               <>
-                Next Photo <ArrowRight className="w-5 h-5 ml-2" />
+                Next Photo <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-1 sm:ml-2" />
               </>
             ) : (
               <>
-                Get My Results <Check className="w-5 h-5 ml-2" />
+                Get My Results <Check className="w-4 h-4 sm:w-5 sm:h-5 ml-1 sm:ml-2" />
               </>
             )}
           </Button>
