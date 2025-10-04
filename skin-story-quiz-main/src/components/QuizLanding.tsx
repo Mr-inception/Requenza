@@ -15,9 +15,10 @@ const QuizLanding = ({ onStart }: QuizLandingProps) => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:px-6 sm:py-12 lg:py-16 text-center space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 animate-slide-in">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-8 md:px-6 md:py-12 text-center space-y-8 md:space-y-12 animate-slide-in">
+      
       {/* Hero Portrait */}
-      <div className="relative mx-auto w-[80vw] max-w-[400px] aspect-square md:w-64 lg:w-72">
+      <div className="relative mx-auto w-[80vw] max-w-[400px] aspect-square md:w-80 lg:w-96">
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-primary-glow/20 animate-pulse-slow"></div>
         <img
           src={heroPortrait}
@@ -27,41 +28,46 @@ const QuizLanding = ({ onStart }: QuizLandingProps) => {
       </div>
 
       {/* Headline */}
-      <div className="space-y-4 sm:space-y-5 lg:space-y-6 max-w-4xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight font-display">
-          <span className="font-semibold text-foreground tracking-tight block">Get your custom plan</span>
-          <span className="font-medium text-foreground/80 block mt-2">with personalized beauty analysis</span>
+      <div className="space-y-4 md:space-y-6 max-w-3xl mx-auto px-2">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl leading-tight font-display">
+          <span className="font-semibold text-foreground tracking-tight block">
+            Get your custom plan
+          </span>
+          <span className="font-medium text-foreground/80 block mt-2 text-2xl md:text-4xl lg:text-5xl">
+            with personalized beauty analysis
+          </span>
         </h1>
         
-        <p className="text-muted-foreground text-lg sm:text-xl lg:text-2xl max-w-2xl mx-auto leading-relaxed">
+        <p className="text-muted-foreground text-base md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed">
           Answer a few questions about your skin, lifestyle, and goals to receive 
           a personalized beauty care routine.
         </p>
       </div>
 
       {/* CTA Button */}
-      <div className="w-full max-w-sm sm:max-w-md">
-        <Button
-          size="lg"
-          className="w-full text-lg sm:text-xl lg:text-2xl py-6 sm:py-8 lg:py-10 font-semibold bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 shadow-lg hover:shadow-xl"
-          onClick={handleStart}
-          disabled={isStarting}
-        >
-          {isStarting ? "Starting..." : "Continue"}
-        </Button>
-      </div>
+      <Button
+        size="lg"
+        className="w-full max-w-md mx-auto text-base md:text-lg py-6 md:py-7 font-semibold bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 shadow-lg hover:shadow-xl"
+        onClick={handleStart}
+        disabled={isStarting}
+      >
+        {isStarting ? "Starting..." : "Continue"}
+      </Button>
 
-      {/* Terms */}
-      <div className="text-xs sm:text-sm lg:text-base text-muted-foreground flex flex-wrap items-center justify-center gap-1 sm:gap-2 lg:gap-3 max-w-4xl mx-auto px-4">
-        <span>By continuing you agree to our</span>
-        <a href="#" className="text-primary hover:underline">Terms of Service</a>
-        <span className="opacity-60">|</span>
-        <a href="#" className="text-primary hover:underline">Privacy Policy</a>
-        <span className="hidden sm:inline opacity-60">|</span>
-        <a href="#" className="hidden sm:inline text-primary hover:underline">Subscription Policy</a>
-        <span className="hidden sm:inline opacity-60">|</span>
-        <a href="#" className="hidden sm:inline text-primary hover:underline">Cookie Policy</a>
-      </div>
+      {/* Terms - Uncomment when needed */}
+      {/* <div className="text-xs md:text-sm text-muted-foreground max-w-2xl mx-auto px-4 space-y-2">
+        <p>By continuing you agree to our</p>
+        <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+          <a href="#" className="text-primary hover:underline">Terms of Service</a>
+          <span className="opacity-60">|</span>
+          <a href="#" className="text-primary hover:underline">Privacy Policy</a>
+          <span className="opacity-60">|</span>
+          <a href="#" className="text-primary hover:underline">Subscription</a>
+          <span className="opacity-60">|</span>
+          <a href="#" className="text-primary hover:underline">Cookies</a>
+        </div>
+      </div> */}
+      
     </div>
   );
 };
