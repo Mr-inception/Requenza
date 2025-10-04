@@ -1,8 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export interface Question {
   id: string;
@@ -79,43 +76,44 @@ const QuizQuestion = ({
         {/* Options */}
         <div className="space-y-3 sm:space-y-4 lg:space-y-5 flex-1">
           {question.type === 'single' ? (
-            <RadioGroup
-              value={selectedAnswers[0] || ""}
-              onValueChange={handleSingleSelect}
-              className="space-y-3 sm:space-y-4"
-            >
+            <div className="space-y-3 sm:space-y-4">
               {question.options.map((option) => (
-                <div key={option.id} className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 lg:p-6 rounded-lg border border-border hover:border-primary/50 transition-colors bg-background/50">
-                  <RadioGroupItem value={option.id} id={option.id} className="shrink-0 mt-1" />
-                  <Label htmlFor={option.id} className="flex-1 cursor-pointer">
-                    <div className="font-medium text-base sm:text-lg lg:text-xl text-foreground">{option.label}</div>
-                    {option.description && (
-                      <div className="text-sm sm:text-base lg:text-lg text-muted-foreground mt-1 sm:mt-2">
-                        {option.description}
-                      </div>
-                    )}
-                  </Label>
+                <div 
+                  key={option.id} 
+                  onClick={() => handleSingleSelect(option.id)}
+                  className={`p-4 sm:p-5 lg:p-6 rounded-lg border transition-colors cursor-pointer ${
+                    selectedAnswers.includes(option.id) 
+                      ? 'border-primary bg-primary/10' 
+                      : 'border-border hover:border-primary/50 bg-background/50'
+                  }`}
+                >
+                  <div className="font-medium text-base sm:text-lg lg:text-xl text-foreground">{option.label}</div>
+                  {option.description && (
+                    <div className="text-sm sm:text-base lg:text-lg text-muted-foreground mt-1 sm:mt-2">
+                      {option.description}
+                    </div>
+                  )}
                 </div>
               ))}
-            </RadioGroup>
+            </div>
           ) : (
             <div className="space-y-2 sm:space-y-3 lg:space-y-4">
               {question.options.map((option) => (
-                <div key={option.id} className="flex items-start gap-3 sm:gap-4 p-4 sm:p-5 lg:p-6 rounded-lg border border-border hover:border-primary/50 transition-colors bg-background/50">
-                  <Checkbox
-                    id={option.id}
-                    checked={selectedAnswers.includes(option.id)}
-                    onCheckedChange={(checked) => handleMultipleSelect(option.id, checked as boolean)}
-                    className="mt-1"
-                  />
-                  <Label htmlFor={option.id} className="flex-1 cursor-pointer">
-                    <div className="font-medium text-base sm:text-lg lg:text-xl text-foreground">{option.label}</div>
-                    {option.description && (
-                      <div className="text-sm sm:text-base lg:text-lg text-muted-foreground mt-1 sm:mt-2">
-                        {option.description}
-                      </div>
-                    )}
-                  </Label>
+                <div 
+                  key={option.id} 
+                  onClick={() => handleMultipleSelect(option.id, !selectedAnswers.includes(option.id))}
+                  className={`p-4 sm:p-5 lg:p-6 rounded-lg border transition-colors cursor-pointer ${
+                    selectedAnswers.includes(option.id) 
+                      ? 'border-primary bg-primary/10' 
+                      : 'border-border hover:border-primary/50 bg-background/50'
+                  }`}
+                >
+                  <div className="font-medium text-base sm:text-lg lg:text-xl text-foreground">{option.label}</div>
+                  {option.description && (
+                    <div className="text-sm sm:text-base lg:text-lg text-muted-foreground mt-1 sm:mt-2">
+                      {option.description}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
