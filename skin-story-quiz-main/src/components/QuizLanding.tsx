@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import heroPortrait from "@/assets/hero-portrait.jpg";
+import logo2 from "@/assets/logo2.svg";
 
 interface QuizLandingProps {
   onStart: () => void;
@@ -16,8 +17,15 @@ const QuizLanding = ({ onStart }: QuizLandingProps) => {
 
   return (
     <div className="w-full min-h-screen relative bg-cream">
+      {/* Header */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-primary/20">
+        <div className="flex items-center justify-center px-4 py-4">
+          <img src={logo2} alt="Logo" className="h-10 w-auto" />
+        </div>
+      </div>
+
       {/* Main Content */}
-      <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-8 md:px-6 md:py-12 text-center space-y-8 md:space-y-12 animate-slide-in pb-24 md:pb-32">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-8 md:px-6 md:py-12 text-center space-y-8 md:space-y-12 animate-slide-in pb-24 md:pb-32 pt-20">
         
         {/* Hero Portrait */}
         <div className="relative w-full h-[50vh] md:h-auto md:aspect-square md:max-w-md md:mx-auto md:mt-12">

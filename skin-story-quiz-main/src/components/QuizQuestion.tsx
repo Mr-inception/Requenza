@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { ArrowLeft } from "lucide-react";
+import logo2 from "@/assets/logo2.svg";
 
 export interface Question {
   id: string;
@@ -50,8 +52,23 @@ const QuizQuestion = ({
 
   return (
     <div className="min-h-screen w-full bg-cream text-foreground relative">
+      {/* Header */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-primary/20">
+        <div className="flex items-center justify-between px-4 py-4">
+          <button
+            onClick={onPrevious}
+            disabled={currentQuestion === 0}
+            className="p-2 text-foreground hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </button>
+          <img src={logo2} alt="Logo" className="h-12 w-auto" />
+          <div className="w-10"></div> {/* Spacer for balance */}
+        </div>
+      </div>
+
       {/* Main Content */}
-      <div className="w-full min-h-screen flex flex-col px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-12 space-y-6 sm:space-y-8 lg:space-y-10 animate-slide-in pb-24 sm:pb-28 lg:pb-32">
+      <div className="w-full min-h-screen flex flex-col px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-12 space-y-6 sm:space-y-8 lg:space-y-10 animate-slide-in pb-24 sm:pb-28 lg:pb-32 pt-20">
         {/* Progress */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm sm:text-base text-muted-foreground">
@@ -123,16 +140,7 @@ const QuizQuestion = ({
 
       {/* Fixed Navigation */}
       <div className="fixed bottom-0 left-0 right-0 p-4 sm:p-6 bg-cream/95 backdrop-blur-sm border-t border-primary/20">
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-between max-w-4xl mx-auto">
-          <Button
-            variant="outline"
-            className="w-full sm:w-auto bg-secondary text-secondary-foreground hover:bg-secondary/80 border-border text-sm sm:text-base lg:text-lg py-3 sm:py-4 lg:py-5"
-            onClick={onPrevious}
-            disabled={currentQuestion === 0}
-          >
-            Previous
-          </Button>
-          
+        <div className="flex justify-center max-w-4xl mx-auto">
           <Button
             onClick={onNext}
             disabled={!canGoNext}
