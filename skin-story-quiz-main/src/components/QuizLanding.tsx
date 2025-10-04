@@ -17,7 +17,7 @@ const QuizLanding = ({ onStart }: QuizLandingProps) => {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:px-6 sm:py-12 lg:py-16 text-center space-y-6 sm:space-y-8 md:space-y-10 lg:space-y-12 animate-slide-in">
       {/* Hero Portrait */}
-      <div className="relative mx-auto w-[50vw] h-[50vw] sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72 max-w-[200px] max-h-[200px] sm:max-w-none sm:max-h-none aspect-square">
+      <div className="relative mx-auto w-[80vw] max-w-[400px] aspect-square md:w-64 lg:w-72">
         <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/20 to-primary-glow/20 animate-pulse-slow"></div>
         <img
           src={heroPortrait}
