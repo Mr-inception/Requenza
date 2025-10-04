@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Camera, RotateCcw, Check, ArrowLeft, ArrowRight } from "lucide-react";
-import logo2 from "@/assets/logo2.svg";
+import logo2 from "@/assets/logo2.2f3ded95.svg";
 
 interface CameraCaptureProps {
   onComplete: (photos: { front: string; side: string }) => void;
@@ -336,20 +336,20 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
     <div className="min-h-screen w-full bg-cream relative">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-primary/20">
-        <div className="flex items-center justify-between px-4 py-4">
+        <div className="flex items-center justify-between px-4 py-2">
           <button
             onClick={handleBack}
             className="p-2 text-foreground hover:text-primary"
           >
             <ArrowLeft className="h-6 w-6" />
           </button>
-          <img src={logo2} alt="Logo" className="h-12 w-auto" />
+          <img src={logo2} alt="Logo" className="h-10 w-auto" />
           <div className="w-10"></div> {/* Spacer for balance */}
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="w-full min-h-screen flex flex-col items-center justify-center px-2 py-4 sm:px-6 sm:py-8 lg:px-8 lg:py-12 space-y-4 sm:space-y-8 lg:space-y-10 animate-slide-in pb-24 sm:pb-28 lg:pb-32 pt-20">
+      <div className="w-full min-h-screen flex flex-col items-center justify-center px-2 py-4 sm:px-6 sm:py-8 lg:px-8 lg:py-12 space-y-4 sm:space-y-8 lg:space-y-10 animate-slide-in pb-24 sm:pb-28 lg:pb-32 pt-16">
         <Card className="max-w-2xl lg:max-w-3xl xl:max-w-4xl w-full p-3 sm:p-6 md:p-8 lg:p-10 space-y-4 sm:space-y-8 lg:space-y-10 bg-background shadow-2xl">
         {/* Header */}
         <div className="text-center space-y-1 sm:space-y-2 lg:space-y-3">

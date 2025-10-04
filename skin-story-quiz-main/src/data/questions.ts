@@ -126,17 +126,17 @@ export const questions: Question[] = [
     options: [
       {
         id: "budget",
-        label: "Under $50",
+        label: "Under ₹1000 ",
         description: "Affordable drugstore options"
       },
       {
         id: "mid-range",
-        label: "$50 - $150",
+        label: "₹1000 - ₹2500",
         description: "Mix of drugstore and mid-range brands"
       },
       {
         id: "premium",
-        label: "$150+",
+        label: "₹2500+",
         description: "High-end and professional products"
       }
     ]

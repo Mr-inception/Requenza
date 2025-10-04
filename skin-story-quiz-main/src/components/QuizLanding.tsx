@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import heroPortrait from "@/assets/hero-portrait.jpg";
-import logo2 from "@/assets/logo2.svg";
+import logo2 from "@/assets/logo2.2f3ded95.svg";
 
 interface QuizLandingProps {
   onStart: () => void;
@@ -23,6 +23,8 @@ const QuizLanding = ({ onStart }: QuizLandingProps) => {
           <img src={logo2} alt="Logo" className="h-10 w-auto" />
         </div>
       </div>
+
+      
 
       {/* Main Content */}
       <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-8 md:px-6 md:py-12 text-center space-y-8 md:space-y-12 animate-slide-in pb-24 md:pb-32 pt-20">

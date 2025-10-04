@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Target, Clock, Shield } from "lucide-react";
-import logo2 from "@/assets/logo2.svg";
+import logo2 from "@/assets/logo2.2f3ded95.svg";
 
 interface QuizResultsProps {
   answers: Record<string, string[]>;
@@ -61,12 +61,12 @@ const QuizResults = ({ answers, photos, onRestart }: QuizResultsProps) => {
     <div className="min-h-screen flex items-center justify-center px-4 py-8 sm:px-6 sm:py-12 lg:py-16 relative">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-primary/20">
-        <div className="flex items-center justify-center px-4 py-4">
-          <img src={logo2} alt="Logo" className="h-12 w-auto" />
+        <div className="flex items-center justify-center px-4 py-2">
+          <img src={logo2} alt="Logo" className="h-10 w-auto" />
         </div>
       </div>
 
-      <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full space-y-6 sm:space-y-8 lg:space-y-10 animate-slide-in pt-20">
+      <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl w-full space-y-6 sm:space-y-8 lg:space-y-10 animate-slide-in pt-16">
         {/* Header */}
         <Card className="p-4 sm:p-6 md:p-8 lg:p-10 text-center">
           <div className="space-y-3 sm:space-y-4 lg:space-y-6">
