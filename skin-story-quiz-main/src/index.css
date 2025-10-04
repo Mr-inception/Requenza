@@ -89,6 +89,34 @@
     background: hsl(var(--background));
     min-height: 100vh;
     font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    /* Improve text rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+  }
+
+  /* Ensure images are responsive by default */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Improve touch targets on mobile */
+  button, 
+  [role="button"], 
+  input[type="submit"], 
+  input[type="button"] {
+    min-height: 44px;
+  }
+
+  @media (min-width: 640px) {
+    button, 
+    [role="button"], 
+    input[type="submit"], 
+    input[type="button"] {
+      min-height: 40px;
+    }
   }
 }
 

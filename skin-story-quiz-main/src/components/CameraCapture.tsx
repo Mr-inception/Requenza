@@ -332,14 +332,14 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
   }, [step, stream, frontPhoto, sidePhoto, isLoading, isVideoReady, errorMessage]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-2 py-4 sm:px-6 sm:py-12 bg-gradient-to-br from-purple-50 to-pink-50">
-      <Card className="max-w-2xl w-full p-3 sm:p-6 md:p-8 space-y-4 sm:space-y-8 bg-white shadow-2xl">
+    <div className="min-h-screen flex items-center justify-center px-2 py-4 sm:px-6 sm:py-12 lg:py-16 bg-gradient-to-br from-purple-50 to-pink-50">
+      <Card className="max-w-2xl lg:max-w-3xl xl:max-w-4xl w-full p-3 sm:p-6 md:p-8 lg:p-10 space-y-4 sm:space-y-8 lg:space-y-10 bg-white shadow-2xl">
         {/* Header */}
-        <div className="text-center space-y-1 sm:space-y-2">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
+        <div className="text-center space-y-1 sm:space-y-2 lg:space-y-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
             Take Your {photoLabel} Photo
           </h2>
-          <p className="text-sm sm:text-base text-gray-600">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto">
             {step === "front" 
               ? "Position your face in the frame and capture a clear front photo" 
               : "Now turn slightly to the side and capture your side profile"}
@@ -347,12 +347,12 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
         </div>
 
         {/* Progress */}
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs sm:text-sm text-gray-600">
+        <div className="space-y-2 sm:space-y-3">
+          <div className="flex justify-between text-xs sm:text-sm lg:text-base text-gray-600">
             <span>Photo {step === "front" ? "1" : "2"} of 2</span>
             <span>{progress}% complete</span>
           </div>
-          <Progress value={progress} className="h-2" />
+          <Progress value={progress} className="h-2 sm:h-3" />
         </div>
 
         {/* Camera/Photo Display */}
@@ -466,9 +466,9 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
         )}
 
         {/* Instructions */}
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-3 sm:p-4 rounded text-xs sm:text-sm">
-          <h4 className="font-semibold text-blue-900 mb-1 sm:mb-2">📸 Photo Tips:</h4>
-          <ul className="text-blue-800 space-y-0.5 sm:space-y-1">
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-3 sm:p-4 lg:p-5 rounded text-xs sm:text-sm lg:text-base">
+          <h4 className="font-semibold text-blue-900 mb-1 sm:mb-2 lg:mb-3">📸 Photo Tips:</h4>
+          <ul className="text-blue-800 space-y-0.5 sm:space-y-1 lg:space-y-2">
             <li>• Make sure you're in a well-lit area</li>
             <li>• Position your face clearly within the guide</li>
             <li>• Remove glasses or accessories if possible</li>
@@ -477,12 +477,12 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 pt-2 sm:pt-4">
+        <div className="flex flex-col sm:flex-row justify-between gap-2 sm:gap-4 lg:gap-6 pt-2 sm:pt-4 lg:pt-6">
           <Button 
             onClick={handleBack} 
             variant="outline" 
             size="default"
-            className="w-full sm:w-auto px-3 sm:px-6 py-2 sm:py-3 border-2 text-sm sm:text-base"
+            className="w-full sm:w-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 border-2 text-sm sm:text-base lg:text-lg"
           >
             <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
             {step === "front" ? "Back to Questions" : "Previous Photo"}
@@ -492,7 +492,7 @@ const CameraCapture = ({ onComplete, onBack }: CameraCaptureProps) => {
             onClick={handleNext}
             disabled={!currentPhoto}
             size="default"
-            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-8 py-2 sm:py-3 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white px-4 sm:px-8 lg:px-10 py-2 sm:py-3 lg:py-4 text-sm sm:text-base lg:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {step === "front" ? (
               <>
